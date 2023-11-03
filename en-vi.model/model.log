@@ -1,0 +1,82 @@
+[Fri, 03 Nov 2023 20:49:52 INFO] .en * src vocab size = 14591
+[Fri, 03 Nov 2023 20:49:52 INFO] .vi * tgt vocab size = 6839
+[Fri, 03 Nov 2023 20:49:52 INFO] Building model...
+[Fri, 03 Nov 2023 20:49:52 INFO] Transformer(
+  (encoder): Encoder(
+    (embed): Embedding(14591, 512)
+    (pe): PositionalEncoder(
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (layers): ModuleList(
+      (0-5): 6 x EncoderLayer(
+        (norm_1): Norm()
+        (norm_2): Norm()
+        (attn): MultiHeadAttention(
+          (q_linear): Linear(in_features=512, out_features=512, bias=True)
+          (k_linear): Linear(in_features=512, out_features=512, bias=True)
+          (v_linear): Linear(in_features=512, out_features=512, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (out): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (ff): FeedForward(
+          (linear_1): Linear(in_features=512, out_features=2048, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear_2): Linear(in_features=2048, out_features=512, bias=True)
+        )
+        (dropout_1): Dropout(p=0.1, inplace=False)
+        (dropout_2): Dropout(p=0.1, inplace=False)
+      )
+    )
+    (norm): Norm()
+  )
+  (decoder): Decoder(
+    (embed): Embedding(6839, 512)
+    (pe): PositionalEncoder(
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (layers): ModuleList(
+      (0-5): 6 x DecoderLayer(
+        (norm_1): Norm()
+        (norm_2): Norm()
+        (norm_3): Norm()
+        (dropout_1): Dropout(p=0.1, inplace=False)
+        (dropout_2): Dropout(p=0.1, inplace=False)
+        (dropout_3): Dropout(p=0.1, inplace=False)
+        (attn_1): MultiHeadAttention(
+          (q_linear): Linear(in_features=512, out_features=512, bias=True)
+          (k_linear): Linear(in_features=512, out_features=512, bias=True)
+          (v_linear): Linear(in_features=512, out_features=512, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (out): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (attn_2): MultiHeadAttention(
+          (q_linear): Linear(in_features=512, out_features=512, bias=True)
+          (k_linear): Linear(in_features=512, out_features=512, bias=True)
+          (v_linear): Linear(in_features=512, out_features=512, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (out): Linear(in_features=512, out_features=512, bias=True)
+        )
+        (ff): FeedForward(
+          (linear_1): Linear(in_features=512, out_features=2048, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear_2): Linear(in_features=2048, out_features=512, bias=True)
+        )
+      )
+    )
+    (norm): Norm()
+  )
+  (out): Linear(in_features=512, out_features=6839, bias=True)
+)
+[Fri, 03 Nov 2023 20:49:52 INFO] Encoder: 26385920
+[Fri, 03 Nov 2023 20:49:52 INFO] Decoder: 28726784
+[Fri, 03 Nov 2023 20:49:52 INFO] * Number of parameters: 55112704
+[Fri, 03 Nov 2023 20:49:52 INFO] Starting training on cuda
+[Fri, 03 Nov 2023 20:53:09 INFO] epoch: 000 - iter: 00200 - train loss: 3.6604 - time elapsed/per batch: 196.6825 0.9834
+[Fri, 03 Nov 2023 20:56:38 INFO] epoch: 000 - iter: 00400 - train loss: 3.0941 - time elapsed/per batch: 209.3239 1.0466
+[Fri, 03 Nov 2023 21:00:12 INFO] epoch: 000 - iter: 00600 - train loss: 2.8911 - time elapsed/per batch: 214.1375 1.0707
+[Fri, 03 Nov 2023 21:03:29 INFO] epoch: 000 - iter: 00800 - train loss: 2.7816 - time elapsed/per batch: 196.6902 0.9835
+[Fri, 03 Nov 2023 21:06:41 INFO] epoch: 000 - iter: 01000 - train loss: 2.7004 - time elapsed/per batch: 192.1191 0.9606
+[Fri, 03 Nov 2023 21:09:52 INFO] epoch: 000 - iter: 01200 - train loss: 2.5982 - time elapsed/per batch: 190.3667 0.9518
+[Fri, 03 Nov 2023 21:13:02 INFO] epoch: 000 - iter: 01400 - train loss: 2.5526 - time elapsed/per batch: 190.7359 0.9537
+[Fri, 03 Nov 2023 21:16:15 INFO] epoch: 000 - iter: 01600 - train loss: 2.4856 - time elapsed/per batch: 192.4065 0.9620
+[Fri, 03 Nov 2023 21:19:26 INFO] epoch: 000 - iter: 01800 - train loss: 2.4121 - time elapsed/per batch: 191.3245 0.9566
