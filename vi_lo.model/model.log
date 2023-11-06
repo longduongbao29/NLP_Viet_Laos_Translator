@@ -1,7 +1,7 @@
-[Mon, 06 Nov 2023 15:51:47 INFO] .vi * src vocab size = 12177
-[Mon, 06 Nov 2023 15:51:47 INFO] .lo * tgt vocab size = 12947
-[Mon, 06 Nov 2023 15:51:47 INFO] Building model...
-[Mon, 06 Nov 2023 15:51:48 INFO] Transformer(
+[Mon, 06 Nov 2023 16:37:46 INFO] .vi * src vocab size = 12177
+[Mon, 06 Nov 2023 16:37:46 INFO] .lo * tgt vocab size = 12947
+[Mon, 06 Nov 2023 16:37:46 INFO] Building model...
+[Mon, 06 Nov 2023 16:37:46 INFO] Transformer(
   (encoder): Encoder(
     (embed): Embedding(12177, 512)
     (pe): PositionalEncoder(
@@ -67,7 +67,8 @@
   )
   (out): Linear(in_features=512, out_features=12947, bias=True)
 )
-[Mon, 06 Nov 2023 15:51:48 INFO] Encoder: 25149952
-[Mon, 06 Nov 2023 15:51:48 INFO] Decoder: 31854080
-[Mon, 06 Nov 2023 15:51:48 INFO] * Number of parameters: 57004032
-[Mon, 06 Nov 2023 15:51:48 INFO] Starting training on cuda
+[Mon, 06 Nov 2023 16:37:46 INFO] Encoder: 25149952
+[Mon, 06 Nov 2023 16:37:46 INFO] Decoder: 31854080
+[Mon, 06 Nov 2023 16:37:46 INFO] * Number of parameters: 57004032
+[Mon, 06 Nov 2023 16:37:46 INFO] Starting training on cuda
+[Mon, 06 Nov 2023 16:41:45 INFO] epoch: 000 - iter: 00200 - train loss: 2.3326 - time elapsed/per batch: 238.4847 1.1924

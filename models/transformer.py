@@ -42,7 +42,7 @@ class Transformer(nn.Module):
         self.SRC, self.TRG = self.loader.build_field(lower=opt.get("lowercase", const.DEFAULT_LOWERCASE))
 #        self.SRC = data.Field(lower=opt.get("lowercase", const.DEFAULT_LOWERCASE))
 #        self.TRG = data.Field(lower=opt.get("lowercase", const.DEFAULT_LOWERCASE), eos_token='<eos>')
-
+       
         # initialize dataset and by proxy the vocabulary
         if(mode == "train"):
             # training flow, necessitate the DataLoader and iterations. This will attempt to load vocab file from the dir instead of rebuilding, but can build a new vocab if no data is found
@@ -56,8 +56,8 @@ class Transformer(nn.Module):
             self.loader.build_vocab(self.fields, model_path=model_dir)
         else:
             raise ValueError("Unknown model's mode: {}".format(mode))
-
-
+        for word in self.SRC.vocab.itos:
+             print(word)
         # define the model
         src_vocab_size, trg_vocab_size = len(self.SRC.vocab), len(self.TRG.vocab)
         d_model, N, heads, dropout = opt['d_model'], opt['n_layers'], opt['heads'], opt['dropout']
