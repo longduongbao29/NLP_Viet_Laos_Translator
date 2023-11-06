@@ -14,7 +14,7 @@ from matplotlib import rcParams
 
 import models
 from modules.config import find_all_config
-from web.direct_translate import bind_blueprint as bind_blueprint_direct, about_blueprint, static_path, template_path
+from web.direct_translate import bind_blueprint as bind_blueprint_direct, about_blueprint, static_path, template_path , translate_sent_blueprint
 
 import flask
 from flask_cors import CORS, cross_origin
@@ -48,12 +48,16 @@ AppModel = LazyLoaderModel()
 app = flask.Flask(__name__, static_folder=static_path, template_folder=template_path)
 
 # test route,
+app.register_blueprint(about_blueprint)
+app.register_blueprint(translate_sent_blueprint)
+
 @app.route('/echo', endpoint='mirror_reverse', methods=['POST'])
 def mirror_reverse():
   requestContent = flask.request.get_json()
   data = requestContent["data"]
   data = data[::-1]
   return flask.jsonify(data=data)
+
 
 @app.route('/translate', endpoint='translate', methods=['POST'])
 def translate():

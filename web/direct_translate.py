@@ -37,10 +37,18 @@ template_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templa
 
 print("Path: ", static_path, template_path)
 
+
+
 about_blueprint = flask.Blueprint("about", __name__, template_folder=template_path, static_folder=static_path)
 @about_blueprint.route('/about')
 def about():
   return flask.render_template("about.html")
+
+translate_sent_blueprint = flask.Blueprint("translate_sentence", __name__, template_folder=template_path, static_folder=static_path)
+@translate_sent_blueprint.route('/translate_sentence')
+def translate_sent():
+  return flask.render_template("translate_sentence.html")
+
 
 def bind_blueprint(lazymodel, config):
   """Dynamically bind the model to the routes."""

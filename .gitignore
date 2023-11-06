@@ -4,4 +4,5 @@ models/__pycache__
 modules/__pycache__
 utils/__pycache__
 winenv
+lnenv
 .vscode
