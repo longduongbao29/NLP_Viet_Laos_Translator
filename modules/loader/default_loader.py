@@ -100,6 +100,7 @@ class DefaultLoader:
       self._valid_data = self._eval_data = TranslationDataset(self._eval_path, ext, fields)
 #    first_sample = self._train_data[0]; raise Exception("{} {}".format(first_sample.src, first_sample.trg))
     # whatever created, we now have the two set of data ready. add the necessary constraints/filtering/etc.
+
     train_data = self._train_data
     eval_data = self._eval_data
     # now we can execute build_vocab. This function will try to load vocab from model_path, and if fail, build the vocab from train_data

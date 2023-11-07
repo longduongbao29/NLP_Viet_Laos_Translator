@@ -56,8 +56,8 @@ class Transformer(nn.Module):
             self.loader.build_vocab(self.fields, model_path=model_dir)
         else:
             raise ValueError("Unknown model's mode: {}".format(mode))
-        for word in self.SRC.vocab.itos:
-             print(word)
+      
+
         # define the model
         src_vocab_size, trg_vocab_size = len(self.SRC.vocab), len(self.TRG.vocab)
         d_model, N, heads, dropout = opt['d_model'], opt['n_layers'], opt['heads'], opt['dropout']
