@@ -1,10 +1,15 @@
 import io, os
+import re
 import dill as pickle
 import torch
 from torch.utils.data import DataLoader
+import torchtext
 from torchtext.data import BucketIterator, Dataset, Example, Field
 from torchtext.datasets import TranslationDataset, Multi30k, IWSLT, WMT14
 from collections import Counter
+import nltk
+from nltk.tokenize import WordPunctTokenizer
+
 
 import modules.constants as const
 from utils.save import load_vocab_from_path
@@ -41,9 +46,15 @@ class DefaultLoader:
     """Filter an iterator if it pass a token limit"""
     return lambda x: len(x.src) <= token_limit and len(x.trg) <= token_limit
 
+  def custom_split_tokenize(self,sentence):
+    """Replace default tokenize
+    """
+    tokens = re.findall(r'\w+|\S', sentence)    
+    return tokens
+  
   def build_field(self, **kwargs):
     """Build fields that will handle the conversion from token->idx and vice versa. To be overriden by MultiLoader."""
-    return Field(**kwargs), Field(init_token=const.DEFAULT_SOS, eos_token=const.DEFAULT_EOS, **kwargs)
+    return Field(tokenize= self.custom_split_tokenize,**kwargs), Field(tokenize= self.custom_split_tokenize,init_token=const.DEFAULT_SOS, eos_token=const.DEFAULT_EOS, **kwargs)
 
   def build_vocab(self, fields, model_path=None, data=None, **kwargs):
     """Build the vocabulary object for torchtext Field. There are three flows:
@@ -57,7 +68,7 @@ class DefaultLoader:
       # the condition will try to load vocab pickled to model path.
       if(data is not None):
         print("Building vocab from received data.")
-        # build the vocab using formatted data.
+        # build the vocab using formatted data
         src_field.build_vocab(data, **kwargs)
         trg_field.build_vocab(data, **kwargs)
       else:
@@ -103,6 +114,7 @@ class DefaultLoader:
 
     train_data = self._train_data
     eval_data = self._eval_data
+  
     # now we can execute build_vocab. This function will try to load vocab from model_path, and if fail, build the vocab from train_data
     build_vocab_kwargs = self._option.get("build_vocab_kwargs", {})
     self.build_vocab(fields, data=train_data, model_path=model_path, **build_vocab_kwargs)
@@ -110,5 +122,6 @@ class DefaultLoader:
     # crafting iterators
     train_iter = BucketIterator(train_data, batch_size=self._option.get("batch_size", const.DEFAULT_BATCH_SIZE), device=self._option.get("device", const.DEFAULT_DEVICE) )
     eval_iter = BucketIterator(eval_data, batch_size=self._option.get("eval_batch_size", const.DEFAULT_EVAL_BATCH_SIZE), device=self._option.get("device", const.DEFAULT_DEVICE), train=False )
+    
     return train_iter, eval_iter
 

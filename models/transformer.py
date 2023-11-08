@@ -42,6 +42,7 @@ class Transformer(nn.Module):
         self.SRC, self.TRG = self.loader.build_field(lower=opt.get("lowercase", const.DEFAULT_LOWERCASE))
 #        self.SRC = data.Field(lower=opt.get("lowercase", const.DEFAULT_LOWERCASE))
 #        self.TRG = data.Field(lower=opt.get("lowercase", const.DEFAULT_LOWERCASE), eos_token='<eos>')
+
        
         # initialize dataset and by proxy the vocabulary
         if(mode == "train"):
@@ -57,7 +58,6 @@ class Transformer(nn.Module):
         else:
             raise ValueError("Unknown model's mode: {}".format(mode))
       
-
         # define the model
         src_vocab_size, trg_vocab_size = len(self.SRC.vocab), len(self.TRG.vocab)
         d_model, N, heads, dropout = opt['d_model'], opt['n_layers'], opt['heads'], opt['dropout']
@@ -135,8 +135,10 @@ class Transformer(nn.Module):
         # move data to specific device's memory
         src = batch.src.transpose(0, 1).to(opt.get('device', const.DEFAULT_DEVICE))
         trg = batch.trg.transpose(0, 1).to(opt.get('device', const.DEFAULT_DEVICE))
+    
 
         trg_input = trg[:, :-1]
+   
         src_pad = self.SRC.vocab.stoi['<pad>']
         trg_pad = self.TRG.vocab.stoi['<pad>']
         ys = trg[:, 1:].contiguous().view(-1)
@@ -309,6 +311,7 @@ class Transformer(nn.Module):
             s = time.time()
             for i, batch in enumerate(self.train_iter): 
                 loss = self.train_step(optimizer, batch, criterion)
+                
                 total_loss += loss
                 
                 # print training loss after every {printevery} steps
