@@ -46,11 +46,14 @@ class DefaultLoader:
     """Filter an iterator if it pass a token limit"""
     return lambda x: len(x.src) <= token_limit and len(x.trg) <= token_limit
 
-  def custom_split_tokenize(self,sentence):
-    """Replace default tokenize
-    """
-    tokens = re.findall(r'\w+|\S', sentence)    
-    return tokens
+  def custom_split_tokenize(sentence):
+      """Replace default tokenize
+      """
+      tokens = sentence.strip().split()
+      for tk in tokens:
+          if re.match(r'[0-9]|[\+\-\+\(\)\{\}\<\>\°]',tk):
+              tokens.remove(tk)
+      return tokens
   
   def build_field(self, **kwargs):
     """Build fields that will handle the conversion from token->idx and vice versa. To be overriden by MultiLoader."""
