@@ -8,7 +8,11 @@ class CleanData:
                 """Replace default tokenize
                 """
                 tokens = sentence.strip().split()
-                for tk in tokens:
-                    if re.search(r'[0-9]|[\+\-\+\(\)\{\}\<\>\°\/\\]',tk):
+                i=0
+                while i < len(tokens):
+                    tk= tokens[i]
+                    if re.search(r'[0-9]|[\-\+\*\(\)\{\}\<\>\°\/\\\=\@\#\$\%\^\&\_\[\]\~\`]',tk):
                         tokens.remove(tk)
+                        i-=1
+                    i+=1
                 return tokens
