@@ -1,3 +1,4 @@
+import re
 import torch
 import torch.nn as nn
 import torchtext.data as data
@@ -17,6 +18,8 @@ from utils.decode_old import create_masks, translate_sentence
 from utils.loss import LabelSmoothingLoss
 from utils.metric import bleu, bleu_batch_iter, bleu_single, bleu_batch
 #from utils.save import load_model_from_path, check_model_in_path, save_and_clear_model, write_model_score, load_model_score, save_model_best_to_path, load_model
+from models.cleandata import CleanData
+
 
 class Transformer(nn.Module):
     """
@@ -39,7 +42,11 @@ class Transformer(nn.Module):
             # multilingual data with multiple corpus in [data][train] namespace
             self.loader = MultiLoader(opt["data"]["train"], valid=opt["data"].get("valid", None), option=opt)
         # input fields
-        self.SRC, self.TRG = self.loader.build_field(lower=opt.get("lowercase", const.DEFAULT_LOWERCASE))
+            
+        if(mode == "train"):
+            self.SRC, self.TRG = self.loader.build_field(tokenize=CleanData.custom_split_tokenize,lower=opt.get("lowercase", const.DEFAULT_LOWERCASE))
+        else:
+            self.SRC, self.TRG = self.loader.build_field(lower=opt.get("lowercase", const.DEFAULT_LOWERCASE))
 #        self.SRC = data.Field(lower=opt.get("lowercase", const.DEFAULT_LOWERCASE))
 #        self.TRG = data.Field(lower=opt.get("lowercase", const.DEFAULT_LOWERCASE), eos_token='<eos>')
 

@@ -7,8 +7,7 @@ import torchtext
 from torchtext.data import BucketIterator, Dataset, Example, Field
 from torchtext.datasets import TranslationDataset, Multi30k, IWSLT, WMT14
 from collections import Counter
-import nltk
-from nltk.tokenize import WordPunctTokenizer
+
 
 
 import modules.constants as const
@@ -46,18 +45,9 @@ class DefaultLoader:
     """Filter an iterator if it pass a token limit"""
     return lambda x: len(x.src) <= token_limit and len(x.trg) <= token_limit
 
-  def custom_split_tokenize(sentence):
-      """Replace default tokenize
-      """
-      tokens = sentence.strip().split()
-      for tk in tokens:
-          if re.match(r'[0-9]|[\+\-\+\(\)\{\}\<\>\°]',tk):
-              tokens.remove(tk)
-      return tokens
-  
   def build_field(self, **kwargs):
     """Build fields that will handle the conversion from token->idx and vice versa. To be overriden by MultiLoader."""
-    return Field(tokenize= self.custom_split_tokenize,**kwargs), Field(tokenize= self.custom_split_tokenize,init_token=const.DEFAULT_SOS, eos_token=const.DEFAULT_EOS, **kwargs)
+    return Field(**kwargs), Field(init_token=const.DEFAULT_SOS, eos_token=const.DEFAULT_EOS, **kwargs)
 
   def build_vocab(self, fields, model_path=None, data=None, **kwargs):
     """Build the vocabulary object for torchtext Field. There are three flows:
