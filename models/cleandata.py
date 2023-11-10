@@ -20,7 +20,7 @@ class CleanData:
                 while i < len(tokens):
                     tokens[i]= tokens[i].replace('\u200b', '')
                     tk= tokens[i]
-                    if re.search(r'www|http|com|^(\.|\,|\:|\;)$',tk):
+                    if re.search(r'\d|www|http|^(\.|\,|\:|\;)$',tk):
                         tokens.remove(tk)
                         i-=1
                     i+=1
@@ -28,7 +28,7 @@ class CleanData:
     @staticmethod        
     def clean_sentence(sentence):
         special_characters ='"@#$%^*+_\/=<>'
-        end_punct = ',.]>)}?!:'
+        end_punct = ',.]>)}?!:;'
         open_punct = '({[<}'
         for char in special_characters:
             sentence = re.sub(pattern="\\"+char,repl="",string= sentence)
@@ -67,8 +67,8 @@ class CleanData:
             #     content = re.sub(pattern="\\"+char,repl="",string= content)
             # #Add a space infront of puntation characters
             for char in end_punct:
-                char_pattern = re.escape(" "+char)
-                content = re.sub(pattern=char_pattern,repl=char,string=content) 
+                char_pattern = re.escape(char)
+                content = re.sub(pattern=char_pattern,repl=" "+char,string=content) 
             # for char in open_punct:
             #     char_pattern = re.escape(char)
             #     content = re.sub(pattern=char_pattern,repl=char+" ",string=content) 
@@ -86,8 +86,8 @@ class CleanData:
             #     content = re.sub(pattern="\\"+char,repl="",string= content)
             # #Add a space infront of puntation characters
             for char in end_punct:
-                char_pattern = re.escape(" "+char)
-                content = re.sub(pattern=char_pattern,repl=char,string=content)
+                char_pattern = re.escape(char)
+                content = re.sub(pattern=char_pattern,repl=" "+char,string=content)
             # for char in open_punct:
             #     char_pattern = re.escape(char)
             #     content = re.sub(pattern=char_pattern,repl=char+" ",string=content)
