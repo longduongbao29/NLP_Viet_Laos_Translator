@@ -20,7 +20,7 @@ class CleanData:
                 while i < len(tokens):
                     tokens[i]= tokens[i].replace('\u200b', '')
                     tk= tokens[i]
-                    if re.search(r'\d|www|http|^(\.|\,|\:|\;)$',tk):
+                    if re.search(r'\d|www|http',tk):
                         tokens.remove(tk)
                         i-=1
                     i+=1
