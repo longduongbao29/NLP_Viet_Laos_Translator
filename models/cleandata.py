@@ -18,13 +18,32 @@ class CleanData:
                 tokens = sentence.strip().split()
                 i=0
                 while i < len(tokens):
+                    # tokens[i] = tokens[i].replace','')
                     tk= tokens[i]
-                    if re.search(r'[0-9]|[\-\+\*\(\)\{\}\<\>\°\/\\\=\@\#\$\%\^\&\_\[\]\~\`]',tk):
+                    if re.search(r'[\-\+\*\(\)\{\}\<\>\°\/\\\=\@\#\$\%\^\&\_\[\]\~\`]',tk):
                         tokens.remove(tk)
                         i-=1
                     i+=1
                 return tokens
-            
+    @staticmethod        
+    def clean(sentence):
+        special_characters ='"@#$%^*+_\/=<>'
+        end_punct = ',.]>)}?!:'
+        open_punct = '({[<}'
+        for char in special_characters:
+            sentence = re.sub(pattern="\\"+char,repl="",string= sentence)
+        #Add a space infront of puntation characters
+        for char in end_punct:
+            char_pattern = re.escape(char)
+            sentence = re.sub(pattern=char_pattern,repl=" "+char+" ",string=sentence) 
+        for char in open_punct:
+            char_pattern = re.escape(char)
+            sentence = re.sub(pattern=char_pattern,repl=char+" ",string=sentence) 
+        #delete duplicate spaces 
+        sentence = re.sub(pattern="  "+char,repl=" ",string=sentence)
+      
+        return sentence
+        
     def clean_file(self, mode):
         data_path=''
         if mode == 'train':

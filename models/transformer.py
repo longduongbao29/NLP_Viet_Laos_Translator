@@ -37,11 +37,12 @@ class Transformer(nn.Module):
         self.device = opt.get('device', const.DEFAULT_DEVICE)
         
         clean = CleanData(opt)
-        clean.clean_file(mode = mode)
+        clean.clean_file("train")
+        clean.clean_file("infer")
         if('train_data_location' in opt or 'train_data_location' in opt.get("data", {})):
             # monolingual data detected
             data_opt = opt if 'train_data_location' in opt else opt["data"]
-            self.loader = DefaultLoader(data_opt['train_data_location']+'_clean', eval_path=data_opt.get('eval_data_location', None), language_tuple=(data_opt["src_lang"], data_opt["trg_lang"]), option=opt)
+            self.loader = DefaultLoader(data_opt['train_data_location']+'_clean', eval_path=data_opt.get('eval_data_location', None)+"_clean", language_tuple=(data_opt["src_lang"], data_opt["trg_lang"]), option=opt)
         elif('data' in opt):
             # multilingual data with multiple corpus in [data][train] namespace
             self.loader = MultiLoader(opt["data"]["train"], valid=opt["data"].get("valid", None), option=opt)
