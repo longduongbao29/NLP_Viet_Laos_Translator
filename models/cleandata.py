@@ -18,7 +18,11 @@ class CleanData:
                 tokens = sentence.strip().split()
                 i=0
                 while i < len(tokens):
-                    tokens[i]= tokens[i].replace('\u200b', '')
+                    tk= tokens[i]
+                    if re.search(r'\d|www|http',tk):
+                        tokens.remove(tk)
+                        i-=1
+                    i+=1
                 return tokens
     @staticmethod        
     def clean_sentence(sentence):
