@@ -3,6 +3,7 @@ import argparse, os
 from shutil import copy2 as copy
 from modules.config import find_all_config
 
+
 OVERRIDE_RUN_MODE = {"serve": "infer", "debug": "eval"}
 
 def check_valid_file(path):
@@ -49,7 +50,6 @@ if __name__ == "__main__":
     print("Config specified, copying all to model dir")
     for subpath in config_path:
       copy(subpath, args.model_dir)
-    
   # load model. Specific run mode required converting
   run_mode = OVERRIDE_RUN_MODE.get(args.run_mode, args.run_mode)
   model = models.AvailableModels[args.model](config=config_path, model_dir=args.model_dir, mode=run_mode)
