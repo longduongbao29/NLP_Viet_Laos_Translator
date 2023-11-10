@@ -18,9 +18,8 @@ class CleanData:
                 tokens = sentence.strip().split()
                 i=0
                 while i < len(tokens):
-                    # tokens[i] = tokens[i].replace','')
                     tk= tokens[i]
-                    if re.search(r'www|http|.com|[0-9]',tk):
+                    if re.search(r'www|http|com|[0-9]',tk):
                         tokens.remove(tk)
                         i-=1
                     i+=1
@@ -58,7 +57,7 @@ class CleanData:
 
         # end_punct = ',.]>)}?!:'
         # open_punct = '({[<}'
-        patt = r'\d+\ *(nm|mm|cm|dm|km|m|kg|h|rmp|Kw|USD|EUR|NA)\b|\b\d+\b|[\°\?\”\£\★\≤\Φ\Ω\≥\×\,\.\(\/\\\|\:\“\"\'\{\}\[\]\!\@\#\$\%\^\*\(\)\+\-\=\_\`\~\→\;\»\【\】\•\™\♦\©\±\⬆️\⬇️\–\<\>\฿\®\€]'
+        patt = r'\d+\ *(nm|mm|cm|dm|km|m|kg|h|rmp|Kw|USD|EUR|NA)\b|\b\d+\b|[\—\°\”\£\★\≤\Φ\Ω\≥\×\/\\\|\“\"\'\{\}\[\]\!\@\#\$\%\^\*\(\)\+\-\=\_\`\~\→\»\【\】\•\™\♦\©\±\⬆️\⬇️\–\<\>\฿\®\€]'
         with io.open(src_path, mode='r', encoding='utf-8') as src_file, \
                 io.open(clean_src_path, mode='w', encoding='utf-8') as clean_src_file:
             content = src_file.read()
