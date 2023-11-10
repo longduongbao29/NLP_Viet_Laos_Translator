@@ -19,7 +19,7 @@ class CleanData:
                 i=0
                 while i < len(tokens):
                     tk= tokens[i]
-                    if re.search(r'www|http|com|[0-9]',tk):
+                    if re.search(r'www|http|com|\d|^(\.|\,|\:|\;)$',tk):
                         tokens.remove(tk)
                         i-=1
                     i+=1
@@ -55,7 +55,7 @@ class CleanData:
         
         # special_characters ='"@#$%^*+_\/=<>'
 
-        # end_punct = ',.]>)}?!:'
+        end_punct = ',.?!:'
         # open_punct = '({[<}'
         patt = r'\d+\ *(nm|mm|cm|dm|km|m|kg|h|rmp|Kw|USD|EUR|NA)\b|\b\d+\b|[\—\°\”\£\★\≤\Φ\Ω\≥\×\/\\\|\“\"\'\{\}\[\]\!\@\#\$\%\^\*\(\)\+\-\=\_\`\~\→\»\【\】\•\™\♦\©\±\⬆️\⬇️\–\<\>\฿\®\€]'
         with io.open(src_path, mode='r', encoding='utf-8') as src_file, \
@@ -65,9 +65,9 @@ class CleanData:
             # for char in special_characters or char in r'[1-9]':
             #     content = re.sub(pattern="\\"+char,repl="",string= content)
             # #Add a space infront of puntation characters
-            # for char in end_punct:
-            #     char_pattern = re.escape(char)
-            #     content = re.sub(pattern=char_pattern,repl=" "+char,string=content) 
+            for char in end_punct:
+                char_pattern = re.escape(" "+char)
+                content = re.sub(pattern=char_pattern,repl=char,string=content) 
             # for char in open_punct:
             #     char_pattern = re.escape(char)
             #     content = re.sub(pattern=char_pattern,repl=char+" ",string=content) 
@@ -84,9 +84,9 @@ class CleanData:
             # for char in special_characters:
             #     content = re.sub(pattern="\\"+char,repl="",string= content)
             # #Add a space infront of puntation characters
-            # for char in end_punct:
-            #     char_pattern = re.escape(char)
-            #     content = re.sub(pattern=char_pattern,repl=" "+char,string=content) 
+            for char in end_punct:
+                char_pattern = re.escape(" "+char)
+                content = re.sub(pattern=char_pattern,repl=char,string=content)
             # for char in open_punct:
             #     char_pattern = re.escape(char)
             #     content = re.sub(pattern=char_pattern,repl=char+" ",string=content)
