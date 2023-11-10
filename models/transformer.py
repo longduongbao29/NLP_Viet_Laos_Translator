@@ -51,10 +51,9 @@ class Transformer(nn.Module):
             self.loader = MultiLoader(opt["data"]["train"], valid=opt["data"].get("valid", None), option=opt)
         # input fields
             
-        if(mode == "train"):
-            self.SRC, self.TRG = self.loader.build_field(tokenize=CleanData.custom_split_tokenize,lower=opt.get("lowercase", const.DEFAULT_LOWERCASE))
-        else:
-            self.SRC, self.TRG = self.loader.build_field(lower=opt.get("lowercase", const.DEFAULT_LOWERCASE))
+        
+        self.SRC, self.TRG = self.loader.build_field(tokenize=CleanData.custom_split_tokenize,lower=opt.get("lowercase", const.DEFAULT_LOWERCASE))
+      
 #        self.SRC = data.Field(lower=opt.get("lowercase", const.DEFAULT_LOWERCASE))
 #        self.TRG = data.Field(lower=opt.get("lowercase", const.DEFAULT_LOWERCASE), eos_token='<eos>')
 
@@ -74,9 +73,6 @@ class Transformer(nn.Module):
             raise ValueError("Unknown model's mode: {}".format(mode))
       
         # define the model
-        with io.open('data/vocab/vi.vocab', mode='w', encoding='utf-8') as file:
-            for word in self.TRG.vocab.itos:
-                file.write(word+'\n')
         src_vocab_size, trg_vocab_size = len(self.SRC.vocab), len(self.TRG.vocab)
         d_model, N, heads, dropout = opt['d_model'], opt['n_layers'], opt['heads'], opt['dropout']
         # get the maximum amount of tokens per sample in encoder. This is useful due to PositionalEncoder requiring this value

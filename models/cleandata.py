@@ -20,7 +20,7 @@ class CleanData:
                 while i < len(tokens):
                     tokens[i]= tokens[i].replace('\u200b', '')
                     tk= tokens[i]
-                    if re.search(r'www|http|com|\d|^(\.|\,|\:|\;)$',tk):
+                    if re.search(r'www|http|com|^(\.|\,|\:|\;)$',tk):
                         tokens.remove(tk)
                         i-=1
                     i+=1
@@ -58,7 +58,7 @@ class CleanData:
 
         end_punct = ',.?!:'
         # open_punct = '({[<}'
-        patt = r'\d+\ *(nm|mm|cm|dm|km|m|kg|h|rmp|Kw|USD|EUR|NA)\b|\b\d+\b|[\Ø\″\³\¥\—\°\”\£\★\≤\Φ\Ω\≥\×\/\\\|\“\"\'\{\}\[\]\!\@\#\$\%\^\*\(\)\+\-\=\_\`\~\→\»\【\】\•\™\♦\©\±\⬆️\⬇️\–\<\>\฿\®\€]'
+        patt = r'\d+\ *(nm|mm|cm|dm|km|m|kg|h|rmp|Kw|USD|EUR|NA)\b|[\Ø\″\³\¥\—\°\”\£\★\≤\Φ\Ω\≥\×\/\\\|\“\"\'\{\}\[\]\!\@\#\$\%\^\*\(\)\+\-\=\_\`\~\→\»\【\】\•\™\♦\©\±\⬆️\⬇️\–\<\>\฿\®\€]'
         with io.open(src_path, mode='r', encoding='utf-8') as src_file, \
                 io.open(clean_src_path, mode='w', encoding='utf-8') as clean_src_file:
             content = src_file.read()
