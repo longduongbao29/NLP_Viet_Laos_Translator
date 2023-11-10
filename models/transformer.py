@@ -76,7 +76,7 @@ class Transformer(nn.Module):
         # define the model
         with io.open('data/vocab/vi.vocab', mode='w', encoding='utf-8') as file:
             for word in self.TRG.vocab.itos:
-                file.write(word,'\n')
+                file.write(word+'\n')
         src_vocab_size, trg_vocab_size = len(self.SRC.vocab), len(self.TRG.vocab)
         d_model, N, heads, dropout = opt['d_model'], opt['n_layers'], opt['heads'], opt['dropout']
         # get the maximum amount of tokens per sample in encoder. This is useful due to PositionalEncoder requiring this value
