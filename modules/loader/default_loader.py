@@ -20,6 +20,7 @@ class DefaultLoader:
     self._train_path = train_path_or_name
     self._eval_path = eval_path
     self._option = option
+    print(train_path_or_name, eval_path)
 
   @property
   def language_tuple(self):

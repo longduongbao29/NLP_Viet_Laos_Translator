@@ -52,7 +52,7 @@ class Transformer(nn.Module):
         # input fields
             
         
-        self.SRC, self.TRG = self.loader.build_field(tokenize=CleanData.custom_split_tokenize,lower=opt.get("lowercase", const.DEFAULT_LOWERCASE))
+        self.SRC, self.TRG = self.loader.build_field(lower=opt.get("lowercase", const.DEFAULT_LOWERCASE))
       
 #        self.SRC = data.Field(lower=opt.get("lowercase", const.DEFAULT_LOWERCASE))
 #        self.TRG = data.Field(lower=opt.get("lowercase", const.DEFAULT_LOWERCASE), eos_token='<eos>')
@@ -239,7 +239,7 @@ class Transformer(nn.Module):
 
         translated = []
         for b_idx in range(0, len(sentences), batch_size):
-            batch = sentences[b_idx: b_idx+batch_size]
+            batch = sentences[b_idx: b_idx+batch_size] 
 #            raise Exception(batch)
             trans_batch = self.translate_batch(batch, trg_lang=trg_lang, output_tokens=output_tokens, input_max_length=input_max_length)
 #            raise Exception(detokenized_batch)
