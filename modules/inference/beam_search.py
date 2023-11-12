@@ -262,7 +262,7 @@ class BeamSearch(DecodeStrategy):
         # create the indiced batch.
         processed_batch = self.preprocess_batch(src, src_lang=src_lang, field_processed=field_processed, src_size_limit=src_size_limit, output_tokens=True, debug=debug)
         
-        print(processed_batch)
+        print("Process_batch",processed_batch)
         
         sent_ids, sent_tokens = (processed_batch, None) if(field_processed) else processed_batch
         assert isinstance(sent_ids, torch.Tensor), "sent_ids is instead {}".format(type(sent_ids))
