@@ -267,6 +267,7 @@ class BeamSearch(DecodeStrategy):
         sent_ids, sent_tokens = (processed_batch, None) if(field_processed) else processed_batch
         assert isinstance(sent_ids, torch.Tensor), "sent_ids is instead {}".format(type(sent_ids))
 
+        print("Sent tokens", sent_tokens)
         batch_start = time.time()
         translated_sentences = self.beam_search(sent_ids, trg_lang=trg_lang, src_tokens=sent_tokens, replace_unk=replace_unk, debug=debug)
         if(debug):
