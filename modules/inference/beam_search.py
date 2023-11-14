@@ -261,13 +261,10 @@ class BeamSearch(DecodeStrategy):
         self.model.eval()
         # create the indiced batch.
         processed_batch = self.preprocess_batch(src, src_lang=src_lang, field_processed=field_processed, src_size_limit=src_size_limit, output_tokens=True, debug=debug)
-        
-        print("Process_batch",processed_batch)
-        
+      
         sent_ids, sent_tokens = (processed_batch, None) if(field_processed) else processed_batch
         assert isinstance(sent_ids, torch.Tensor), "sent_ids is instead {}".format(type(sent_ids))
 
-        print("Sent tokens", sent_tokens)
         batch_start = time.time()
         translated_sentences = self.beam_search(sent_ids, trg_lang=trg_lang, src_tokens=sent_tokens, replace_unk=replace_unk, debug=debug)
         if(debug):
@@ -298,6 +295,7 @@ class BeamSearch(DecodeStrategy):
         if(src_size_limit):
             processed_sent = map(lambda x: x[:src_size_limit], processed_sent)
         processed_sent = list(processed_sent)
+        print(processed_sent)
         tokenized_sent = [torch.LongTensor([self._token_to_index(t) for t in s]) for s in processed_sent] # convert to tensors, in indices format
         sentences = Variable(pad_sequence(tokenized_sent, True, padding_value=self.SRC.vocab.stoi[pad_token])) # padding sentences
         if(debug):
