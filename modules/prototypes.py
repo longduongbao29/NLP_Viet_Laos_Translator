@@ -185,25 +185,3 @@ class Decoder(nn.Module):
         return x if(not output_attention) else (x, attentions)
 
 
-class Config:
-    """Deprecated"""
-    def __init__(self):
-        self.opt = {
-            'train_src_data':'/workspace/khoai23/opennmt/data/iwslt_en_vi/train.en',
-            'train_trg_data':'/workspace/khoai23/opennmt/data/iwslt_en_vi/train.vi',
-            'valid_src_data':'/workspace/khoai23/opennmt/data/iwslt_en_vi/tst2013.en',
-            'valid_trg_data':'/workspace/khoai23/opennmt/data/iwslt_en_vi/tst2013.vi',
-            'src_lang':'en', # useless atm
-            'trg_lang':'en',#'vi_spacy_model', # useless atm
-            'max_strlen':160,
-            'batchsize':1500,
-            'device':'cuda',
-            'd_model': 512,
-            'n_layers': 6,
-            'heads': 8,
-            'dropout': 0.1,
-            'lr':0.0001,
-            'epochs':30,
-            'printevery': 200,
-            'k':5,
-        }
