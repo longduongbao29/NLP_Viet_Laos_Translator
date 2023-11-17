@@ -1,9 +1,9 @@
-[Tue, 14 Nov 2023 09:43:52 INFO] .lo * src vocab size = 11763
-[Tue, 14 Nov 2023 09:43:52 INFO] .vi * tgt vocab size = 9939
-[Tue, 14 Nov 2023 09:43:52 INFO] Building model...
-[Tue, 14 Nov 2023 09:43:52 INFO] Transformer(
+[Fri, 17 Nov 2023 13:38:11 INFO] .lo * src vocab size = 10456
+[Fri, 17 Nov 2023 13:38:11 INFO] .vi * tgt vocab size = 8995
+[Fri, 17 Nov 2023 13:38:11 INFO] Building model...
+[Fri, 17 Nov 2023 13:38:16 INFO] Transformer(
   (encoder): Encoder(
-    (embed): Embedding(11763, 512)
+    (embed): Embedding(10456, 512)
     (pe): PositionalEncoder(
       (dropout): Dropout(p=0.1, inplace=False)
     )
@@ -30,7 +30,7 @@
     (norm): Norm()
   )
   (decoder): Decoder(
-    (embed): Embedding(9939, 512)
+    (embed): Embedding(8995, 512)
     (pe): PositionalEncoder(
       (dropout): Dropout(p=0.1, inplace=False)
     )
@@ -65,9 +65,9 @@
     )
     (norm): Norm()
   )
-  (out): Linear(in_features=512, out_features=9939, bias=True)
+  (out): Linear(in_features=512, out_features=8995, bias=True)
 )
-[Tue, 14 Nov 2023 09:43:53 INFO] Encoder: 24937984
-[Tue, 14 Nov 2023 09:43:53 INFO] Decoder: 30313984
-[Tue, 14 Nov 2023 09:43:53 INFO] * Number of parameters: 55251968
-[Tue, 14 Nov 2023 09:43:53 INFO] Starting training on cuda
+[Fri, 17 Nov 2023 13:38:16 INFO] Encoder: 24268800
+[Fri, 17 Nov 2023 13:38:16 INFO] Decoder: 29830656
+[Fri, 17 Nov 2023 13:38:16 INFO] * Number of parameters: 54099456
+[Fri, 17 Nov 2023 13:38:16 INFO] Starting training on cuda
