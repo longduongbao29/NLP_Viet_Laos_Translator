@@ -35,15 +35,21 @@ class DefaultLoader:
         """DefaultLoader will use the default lang option @bleu_batch_iter <sos>, hence, None"""
         return None, None
 
-    def tokenize(self, sentence):
-        return sentence.strip().split()
-
     def vi_tokenize(self, sentence):
-        return sentence.strip().split()
+        tok = [
+            word
+            for word in sentence.strip().split()
+            if not any(char.isdigit() for char in word)
+        ]
+        return tok
 
     def lo_tokenize(self, sentence):
-        sentence = sentence.replace("\u200b", "")
-        return [word for word in lo_tokenize(sentence) if word != " "]
+        sentence = sentence.strip().replace("\u200b", "")
+        return [
+            word
+            for word in lo_tokenize(sentence)
+            if word != " " and not any(char.isdigit() for char in word)
+        ]
 
     def detokenize(self, list_of_tokens):
         """Differentiate between [batch, len] and [len]; joining tokens back to strings"""

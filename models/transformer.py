@@ -81,6 +81,9 @@ class Transformer(nn.Module):
             raise ValueError("Unknown model's mode: {}".format(mode))
 
         # define the model
+        with io.open("data/vocab/vi.vocab", mode="w", encoding="utf-8") as file:
+            for word in self.TRG.vocab.itos:
+                file.write(word+'\n')
         src_vocab_size, trg_vocab_size = len(self.SRC.vocab), len(self.TRG.vocab)
         d_model, N, heads, dropout = (
             opt["d_model"],
